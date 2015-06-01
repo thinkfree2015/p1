@@ -6,8 +6,8 @@ package com.efeiyi.ec;
  */
 public class App 
 {
-    public static void main( String[] args )
-    {
+    public static void main( String[] args ) {
+        new Hello().sayHello();
         System.out.println( "Hello World!" );
     }
 }

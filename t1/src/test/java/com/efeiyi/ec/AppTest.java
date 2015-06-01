@@ -24,6 +24,6 @@ public class AppTest {
 
     @Test
     public void testChu(){
-        Assert.assertEquals("wrong",3,a.chu(4,2));
+        Assert.assertEquals("wrong",2,a.chu(4,2));
     }
 }
