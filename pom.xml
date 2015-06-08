@@ -12,7 +12,6 @@
         <module>base</module>
         <module>t1</module>
         <module>t2</module>
-        <module>web</module>
         <module>web1</module>
     </modules>
 
