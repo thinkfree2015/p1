@@ -1,58 +1,32 @@
-package com.ming800.core.taglib;
+package com.ming800.organization.service.impl;
 
+import com.ming800.core.xdo.dao.XdoDao;
 import com.ming800.core.p.model.Module;
 import com.ming800.core.p.service.ModuleManager;
-import com.ming800.core.util.ApplicationContextUtil;
 import com.ming800.core.util.AuthorizationUtil;
-import com.ming800.organization.OrganizationConst;
-import com.ming800.organization.model.ConfigProperty;
-import com.ming800.organization.model.Permission;
-import com.ming800.organization.model.Role;
+import com.ming800.organization.model.*;
+import com.ming800.organization.service.RoleManager;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Administrator
- * Date: 12-12-1
- * Time: 下午2:10
+ * Date: 12-11-16
+ * Time: 下午4:58
  * To change this template use File | Settings | File Templates.
  */
+@Service
+public class RoleManagerImpl implements RoleManager {
+    @Autowired
+    private XdoDao xdoDao;
+    @Autowired
+    private ModuleManager moduleManager;
 
-public class Setting extends TagSupport {
-    private ModuleManager moduleManager = (ModuleManager) ApplicationContextUtil.getApplicationContext().getBean("moduleManagerImpl");
-    private String name;
-    private Map<String, Module> moduleMap;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int doStartTag() throws JspException {
-        moduleMap = moduleManager.fetchModuleMap();
-        if (processSetting()) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
-    public Map<String, Module> getModuleMap() {
-        return moduleMap;
-    }
-
-    public void setModuleMap(Map<String, Module> moduleMap) {
-        this.moduleMap = moduleMap;
-    }
-
-    public boolean processSetting() {
+    @Override
+    public boolean processSetting(String name) {
 
 
         if (name == null || name.equals("")) {
@@ -83,10 +57,12 @@ public class Setting extends TagSupport {
 
 
     private String getDefaultValueByName(String keyName) {
+        Map<String, Module> moduleMap = moduleManager.fetchModuleMap();
 
         Iterator iterator = moduleMap.keySet().iterator();
         while (iterator.hasNext()) {
             String key = (String) iterator.next();
+
             Module tempModule = moduleMap.get(key);
 
             for (ConfigProperty configProperty : tempModule.getConfigPropertyList()) {
@@ -95,13 +71,24 @@ public class Setting extends TagSupport {
                     return configProperty.getDefaultValue();
                 }
 
-
             }
-
 
         }
 
         return "";
     }
 
+    @Override
+    public Role getRole(String basicType) {
+        String hql = "select s from com.ming800.organization.model.Role s where s.basicType=:basicType and s.theStatus=1";
+        LinkedHashMap<String, Object> linkedHashMap = new LinkedHashMap<>();
+        linkedHashMap.put("basicType", basicType);
+        List<Role> roleList=new ArrayList<>();
+        roleList=xdoDao.getObjectList(hql,linkedHashMap);
+        if (roleList!=null&&roleList.size()>0){
+            return roleList.get(0);
+        }
+        return null;
+
+    }
 }

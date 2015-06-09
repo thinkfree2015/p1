@@ -321,7 +321,7 @@ public class XdoController {
                 systemLog.setContent(tempDo.getName() + "统计超时:" + (date2 - date1));
                 systemLog.setTheDateTime(new Date());
                 //systemLog.setCityShotType(AuthorizationUtil.getMyCity());
-                systemLog.setUser(AuthorizationUtil.getUser());
+                //systemLog.setUser(AuthorizationUtil.getUser());
                 systemLog.setTheType(PConst.SYSTEM_LOG_THE_TYPE_SPEED);
                 baseManager.saveOrUpdate(systemLog.getClass().getName(), systemLog);
             }

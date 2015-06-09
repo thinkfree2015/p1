@@ -1,3 +1,4 @@
+
 package com.ming800.core.util;
 
 import com.ming800.organization.model.*;
@@ -6,9 +7,6 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 
-/**
- * @author WuYingbo
- */
 public class AuthorizationUtil {
 
 

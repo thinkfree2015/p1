@@ -13,7 +13,6 @@ import com.ming800.core.taglib.PageEntity;
 import com.ming800.core.util.*;
 
 import com.ming800.core.xdo.service.XdoManager;
-import com.ming800.organization.service.PermissionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,13 +39,13 @@ public class XdoManagerImpl implements XdoManager {
     private ModuleManager moduleManager;
     @Autowired
     private DictionaryDataManager dictionaryDataManager;
-    @Autowired
-    private PermissionManager permissionManager;
+/*    @Autowired
+    private PermissionManager permissionManager;*/
 
     public void saveOrUpdateOperationLog(Do tempDo, String content, String operationType) {
-        Map<String, String> settingMap = AuthorizationUtil.getMyUser().getSettingMap();
+        //Map<String, String> settingMap = AuthorizationUtil.getMyUser().getSettingMap();
 
-        String operation = settingMap.get("operation");
+        Boolean operation = true;//settingMap.get("operation");
 
         if (operation != null && operation.equals("true")) {
 
@@ -577,10 +576,7 @@ public class XdoManagerImpl implements XdoManager {
 
         String bigBranch = "";  //大数据
 
-        if (AuthorizationUtil.getMyUser().getId() != null) {
-            Map<String, String> settingMap = AuthorizationUtil.getMyUser().getSettingMap();
-            bigBranch = "";//settingMap.get("bigBranch");
-        }
+
 
         for (QueryCondition queryCondition : queryConditionList) {
             String propertyName = queryCondition.getName();
@@ -2207,7 +2203,7 @@ public class XdoManagerImpl implements XdoManager {
                 ownerId = id.toString();
             }
         }
-        return permissionManager.processAccess(access, ownerId.toString());
+        return true;
     }
 
     private String generateDataReportGroupValue(Object object, String name) throws Exception {

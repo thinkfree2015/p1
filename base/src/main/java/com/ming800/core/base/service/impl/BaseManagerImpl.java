@@ -1,9 +1,9 @@
 package com.ming800.core.base.service.impl;
 
+import com.ming800.core.p.model.Module;
 import com.ming800.core.xdo.dao.XdoDao;
 import com.ming800.core.base.service.BaseManager;
 import com.ming800.core.does.model.Field;
-import com.ming800.core.p.model.Module;
 import com.ming800.core.p.model.StatusTypeField;
 import com.ming800.core.p.model.StatusTypeItem;
 import com.ming800.core.p.model.Xentity;

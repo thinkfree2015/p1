@@ -6,6 +6,7 @@ import com.ming800.core.p.PConst;
 import com.ming800.core.p.model.FileData;
 import com.ming800.core.p.service.AttachmentManager;
 import com.ming800.core.util.*;
+//import com.ming800.organization.model.Branch;
 import com.ming800.organization.model.Branch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

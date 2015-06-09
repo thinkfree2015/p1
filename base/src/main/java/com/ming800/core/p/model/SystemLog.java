@@ -1,9 +1,6 @@
 package com.ming800.core.p.model;
 
 
-import com.ming800.organization.model.Branch;
-
-import com.ming800.organization.model.User;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -26,7 +23,7 @@ public class SystemLog {
     //    @FieldValue(value = "CURRENT_DATETIME")
     private Date theDateTime;
     //    @FieldValue(value = "MY_USER")
-    private User user;
+    //private User user;
     //    @FieldValue(value = "MY_BRANCH")
     /*private Branch branch;*/
     //    @FieldValue(value = "MY_TEACH_AREA")
@@ -79,7 +76,7 @@ public class SystemLog {
         this.theDateTime = theDateTime;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+/*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
@@ -89,7 +86,7 @@ public class SystemLog {
         this.user = user;
     }
 
-}
+}*/
 /*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id")
     public Branch getBranch() {
@@ -100,3 +97,4 @@ public class SystemLog {
         this.branch = branch;
     }*/
 
+}

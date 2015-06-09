@@ -5,7 +5,7 @@ import com.ming800.core.does.model.*;
 import com.ming800.core.does.service.DoManager;
 import com.ming800.core.p.model.Xentity;
 import com.ming800.core.util.AuthorizationUtil;
-import com.ming800.organization.model.Role;
+//import com.ming800.organization.model.Role;
 import org.dom4j.Node;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -747,9 +747,9 @@ public class DoManagerImpl implements DoManager {
         String currentRoleType ="";
         //权限校验
         //当前用户角色类型
-        Role role=AuthorizationUtil.getMyUser().getRole();
+        //Role role=AuthorizationUtil.getMyUser().getRole();
 
-        currentRoleType=AuthorizationUtil.getMyUser().getRole().getBasicType();
+        //currentRoleType=AuthorizationUtil.getMyUser().getRole().getBasicType();
 
         //拥有当前动作权限的用户角色
         String access = tempDo.getAccess();

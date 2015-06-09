@@ -1,11 +1,7 @@
 package com.ming800.core.taglib;
 
 import com.ming800.core.base.service.BaseManager;
-import com.ming800.core.p.model.Dictionary;
-import com.ming800.core.p.model.DictionaryData;
-import com.ming800.core.p.service.DictionaryDataManager;
 import com.ming800.core.util.ApplicationContextUtil;
-import com.ming800.core.util.AuthorizationUtil;
 import com.ming800.organization.model.User;
 
 import javax.servlet.jsp.JspException;

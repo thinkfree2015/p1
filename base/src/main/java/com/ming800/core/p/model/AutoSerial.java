@@ -19,7 +19,6 @@ public class AutoSerial {
     private String id;
     private String serial;
     private String model;
-    private Branch branch;
 
 
     @Id
@@ -51,13 +50,5 @@ public class AutoSerial {
         this.model = model;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "branch_id")
-    public Branch getBranch() {
-        return branch;
-    }
 
-    public void setBranch(Branch branch) {
-        this.branch = branch;
-    }
 }
