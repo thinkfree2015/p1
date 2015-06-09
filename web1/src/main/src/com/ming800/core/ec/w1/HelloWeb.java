@@ -6,4 +6,5 @@ import com.efeiyi.ec.product.model.Product;
  */
 public class HelloWeb {
     Product p = new Product();
+
 }
