@@ -1,9 +1,8 @@
-package com.ming800.core.base.controller;
+package com.ming800.core.xdo.controller;
 
 import com.ming800.core.does.model.Do;
 import com.ming800.core.does.service.DoHandler;
 import com.ming800.core.does.service.DoManager;
-import com.ming800.core.p.service.PrintTemplateManager;
 import com.ming800.core.util.ReflectUtil;
 import freemarker.core.Environment;
 import freemarker.template.Configuration;

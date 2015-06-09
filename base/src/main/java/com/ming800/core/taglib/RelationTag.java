@@ -1,13 +1,11 @@
 package com.ming800.core.taglib;
 
 import com.ming800.core.base.model.Relation;
-import com.ming800.core.base.model.RelationObject;
 import com.ming800.core.base.service.BaseManager;
-import com.ming800.core.base.service.XdoManager;
+import com.ming800.core.xdo.service.XdoManager;
 import com.ming800.core.p.model.Xentity;
 import com.ming800.core.p.service.ModuleManager;
 import com.ming800.core.util.ApplicationContextUtil;
-import com.ming800.core.util.AuthorizationUtil;
 import com.ming800.core.util.ReflectUtil;
 
 import javax.servlet.jsp.JspException;

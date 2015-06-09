@@ -1,17 +1,9 @@
 package com.ming800.core.base.model;
 
-import com.ming800.core.does.model.*;
-import com.ming800.core.p.model.Xentity;
-import com.ming800.core.p.service.ModuleManager;
-import com.ming800.core.util.ApplicationContextUtil;
-import com.ming800.organization.model.Branch;
-import org.hibernate.annotations.GenericGenerator;
 
+import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+
 
 /**
  * Created with IntelliJ IDEA.

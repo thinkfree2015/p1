@@ -1,7 +1,7 @@
-package com.ming800.core.base.controller;
+package com.ming800.core.xdo.controller;
 
 import com.ming800.core.base.service.BaseManager;
-import com.ming800.core.base.service.XdoManager;
+import com.ming800.core.xdo.service.XdoManager;
 import com.ming800.core.does.service.DoManager;
 import com.ming800.core.p.model.Xentity;
 import com.ming800.core.p.service.ModuleManager;
@@ -22,7 +22,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.

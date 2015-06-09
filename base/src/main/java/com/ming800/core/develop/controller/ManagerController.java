@@ -1,6 +1,6 @@
 package com.ming800.core.develop.controller;
 
-import com.ming800.core.base.controller.BaseController;
+import com.ming800.core.xdo.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.ResourceUtils;

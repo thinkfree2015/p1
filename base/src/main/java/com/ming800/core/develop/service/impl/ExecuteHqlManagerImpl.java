@@ -1,6 +1,6 @@
 package com.ming800.core.develop.service.impl;
 
-import com.ming800.core.base.dao.XdoDao;
+import com.ming800.core.xdo.dao.XdoDao;
 import com.ming800.core.develop.service.ExecuteHqlManager;
 import com.ming800.core.util.SystemValueUtil;
 import org.springframework.beans.factory.annotation.Autowired;

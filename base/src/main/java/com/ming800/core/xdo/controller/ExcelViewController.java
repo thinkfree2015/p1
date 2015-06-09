@@ -1,4 +1,4 @@
-package com.ming800.core.base.controller;
+package com.ming800.core.xdo.controller;
 
 
 import com.ming800.core.does.model.Do;

@@ -1,20 +1,18 @@
-package com.ming800.core.base.service.impl;
+package com.ming800.core.xdo.service.impl;
 
-import com.ming800.core.base.dao.XdoDao;
-import com.ming800.core.base.service.QueryHandler;
+import com.ming800.core.xdo.dao.XdoDao;
 import com.ming800.core.does.model.*;
-import com.ming800.core.base.service.XdoManager;
 import com.ming800.core.does.service.DoManager;
 import com.ming800.core.does.model.Page;
 import com.ming800.core.p.model.DictionaryData;
 import com.ming800.core.p.model.MethodCache;
 import com.ming800.core.p.model.OperationLog;
-import com.ming800.core.p.model.StatusTypeItem;
 import com.ming800.core.p.service.DictionaryDataManager;
 import com.ming800.core.p.service.ModuleManager;
 import com.ming800.core.taglib.PageEntity;
 import com.ming800.core.util.*;
 
+import com.ming800.core.xdo.service.XdoManager;
 import com.ming800.organization.service.PermissionManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

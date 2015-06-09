@@ -1,8 +1,7 @@
-package com.ming800.core.base.dao;
+package com.ming800.core.xdo.dao;
 
 import com.ming800.core.taglib.PageEntity;
 import com.ming800.core.util.PageInfo;
-import com.ming800.organization.model.MyUser;
 
 import java.util.LinkedHashMap;
 import java.util.List;

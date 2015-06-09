@@ -1,7 +1,7 @@
-package com.ming800.core.base.controller;
+package com.ming800.core.xdo.controller;
 
-import com.ming800.core.base.service.XdoManager;
-import com.ming800.core.base.service.XdoSupportManager;
+import com.ming800.core.xdo.service.XdoManager;
+import com.ming800.core.xdo.service.XdoSupportManager;
 import com.ming800.core.does.model.*;
 import com.ming800.core.does.service.DoManager;
 import com.ming800.core.does.service.impl.DoManagerImpl;
@@ -11,7 +11,6 @@ import com.ming800.core.p.model.Xentity;
 import com.ming800.core.p.service.ModuleManager;
 import com.ming800.core.p.service.VersionManager;
 import com.ming800.core.taglib.PageEntity;
-import com.ming800.core.util.AuthorizationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -175,48 +174,7 @@ public class XdoSupportController {
         return xdoManager.generateResultListPage(qms[0], tempDo, tempDoQuery, tempPage, conditions, pageEntity);
     }
 
-    //                返回列表
-    @RequestMapping("/xback.do")
-    public ModelAndView xback() throws Exception {
-        return new ModelAndView(AuthorizationUtil.getMyUser().getTempPageUrl());
-    }
 
-
-    //                返回列表
-    @RequestMapping("/xrdback.do")
-    public ModelAndView xrdback(HttpServletRequest request, ModelMap modelMap) throws Exception {
-        String qm = request.getParameter("qm");
-        String id = request.getParameter("id");
-        String resultPage = "";
-        if (qm.startsWith("remove")) {  //假删
-
-            Do tempDo = doManager.getDoByQueryModel(qm);
-            modelMap.put("tempDo", tempDo);
-            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
-                modelMap = xdoSupportManager.execute(tempDo, modelMap, request);
-                String message = (String) modelMap.get("message");
-                if (message != null) {
-                    modelMap.put("message", message);
-                    return new ModelAndView(AuthorizationUtil.getMyUser().getTempPageUrl(), modelMap);
-                }
-            }
-            resultPage = xdoManager.removeObject(tempDo, id);
-        } else if (qm.startsWith("delete")) {  //真删
-            Do tempDo = doManager.getDoByQueryModel(qm);
-            modelMap.put("tempDo", tempDo);
-            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
-                modelMap = xdoSupportManager.execute(tempDo, modelMap, request);
-                String message = (String) modelMap.get("message");
-                if (message != null) {
-                    modelMap.put("message", message);
-                    return new ModelAndView(AuthorizationUtil.getMyUser().getTempPageUrl(), modelMap);
-                }
-            }
-            resultPage = xdoManager.deleteObject(tempDo, id);
-        }
-
-        return new ModelAndView(AuthorizationUtil.getMyUser().getTempPageUrl());
-    }
 
 }
 

@@ -1,6 +1,6 @@
 package com.ming800.core.does.service.impl;
 
-import com.ming800.core.base.dao.XdoDao;
+import com.ming800.core.xdo.dao.XdoDao;
 import com.ming800.core.does.model.*;
 import com.ming800.core.does.service.DoManager;
 import com.ming800.core.p.model.Xentity;

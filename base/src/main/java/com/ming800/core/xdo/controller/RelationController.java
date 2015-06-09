@@ -1,9 +1,9 @@
-package com.ming800.core.base.controller;
+package com.ming800.core.xdo.controller;
 
 import com.ming800.core.base.model.Relation;
 import com.ming800.core.base.model.RelationObject;
 import com.ming800.core.base.service.BaseManager;
-import com.ming800.core.base.service.XdoManager;
+import com.ming800.core.xdo.service.XdoManager;
 import com.ming800.core.does.service.impl.DoManagerImpl;
 import com.ming800.core.p.model.Xentity;
 import com.ming800.core.p.service.ModuleManager;

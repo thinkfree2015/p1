@@ -1,7 +1,7 @@
 package com.ming800.core.does.controller;
 
 import com.ming800.core.base.service.BaseManager;
-import com.ming800.core.base.service.XdoManager;
+import com.ming800.core.xdo.service.XdoManager;
 import com.ming800.core.does.model.Do;
 import com.ming800.core.does.model.DoResult;
 import com.ming800.core.does.service.DoHandler;

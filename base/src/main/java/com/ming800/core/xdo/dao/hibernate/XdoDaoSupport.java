@@ -1,6 +1,6 @@
-package com.ming800.core.base.dao.hibernate;
+package com.ming800.core.xdo.dao.hibernate;
 
-import com.ming800.core.base.dao.XdoDao;
+import com.ming800.core.xdo.dao.XdoDao;
 import com.ming800.core.taglib.PageEntity;
 import com.ming800.core.util.PageInfo;
 import org.hibernate.*;

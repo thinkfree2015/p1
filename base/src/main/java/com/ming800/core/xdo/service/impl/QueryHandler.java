@@ -1,4 +1,4 @@
-package com.ming800.core.base.service;
+package com.ming800.core.xdo.service.impl;
 
 import com.ming800.core.does.model.XQuery;
 import org.springframework.ui.ModelMap;

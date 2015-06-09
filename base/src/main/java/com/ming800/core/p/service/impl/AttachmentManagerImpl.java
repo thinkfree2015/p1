@@ -1,7 +1,7 @@
 package com.ming800.core.p.service.impl;
 
 import com.ming800.core.p.service.AliOssUploadManager;
-import com.ming800.core.base.dao.XdoDao;
+import com.ming800.core.xdo.dao.XdoDao;
 import com.ming800.core.p.PConst;
 import com.ming800.core.p.model.FileData;
 import com.ming800.core.p.service.AttachmentManager;
@@ -9,7 +9,6 @@ import com.ming800.core.util.*;
 import com.ming800.organization.model.Branch;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;

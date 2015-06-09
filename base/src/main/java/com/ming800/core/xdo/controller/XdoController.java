@@ -1,8 +1,8 @@
-package com.ming800.core.base.controller;
+package com.ming800.core.xdo.controller;
 
 import com.ming800.core.base.service.BaseManager;
-import com.ming800.core.base.service.XdoManager;
-import com.ming800.core.base.service.XdoSupportManager;
+import com.ming800.core.xdo.service.XdoManager;
+import com.ming800.core.xdo.service.XdoSupportManager;
 import com.ming800.core.does.model.*;
 import com.ming800.core.does.service.DoManager;
 import com.ming800.core.p.PConst;
