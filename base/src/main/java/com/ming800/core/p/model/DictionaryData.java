@@ -1,6 +1,6 @@
 package com.ming800.core.p.model;
 
-import com.ming800.organization.model.Branch;
+
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.hibernate.annotations.GenericGenerator;
@@ -25,7 +25,7 @@ public class DictionaryData implements Serializable {
     private String dictionaryId;   //sid
     @JsonProperty(value = "text")
     private String data;
-    private Branch branch;
+    //private Branch branch;
 
     @Id
     @GenericGenerator(name = "id", strategy = "com.ming800.core.p.model.M8idGenerator")
@@ -65,7 +65,7 @@ public class DictionaryData implements Serializable {
         this.data = data;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+/*    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "branch_id")
     public Branch getBranch() {
         return branch;
@@ -74,4 +74,5 @@ public class DictionaryData implements Serializable {
     public void setBranch(Branch branch) {
         this.branch = branch;
     }
+*/
 }
