@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<b:beans xmlns="http://www.springframework.org/schema/security"
+         xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+
+    <http realm="Contacts Realm" use-expressions="true">
+        <!--<intercept-url pattern="/spinach/**"  access="IS_AUTHENTICATED_ANONYMOUSLY"/>      &lt;!&ndash;菠菜网&ndash;&gt;-->
+        <!--<intercept-url pattern="/basic/spinach/xlist.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/basic/spinach/xm.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/do/spinach/listCondition.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/call/**"  access="IS_AUTHENTICATED_ANONYMOUSLY"/>      &lt;!&ndash;呼叫中心&ndash;&gt;-->
+        <!--<intercept-url pattern="/api/**"  access="IS_AUTHENTICATED_ANONYMOUSLY"/>         &lt;!&ndash;接口&ndash;&gt;-->
+        <!--<intercept-url pattern="/website/**"  access="IS_AUTHENTICATED_ANONYMOUSLY"/>    &lt;!&ndash;网站信息&ndash;&gt;-->
+        <!--<intercept-url pattern="/WEB-INF/springmvc/index.jsp"    access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/index.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/reg/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>            &lt;!&ndash;注册&ndash;&gt;-->
+        <!--<intercept-url pattern="/basic/xmj.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/branch/tbRemoteBranch.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercep t-url pattern="/smsCheckCode/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/common/header.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/common/footer.jsp" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/index.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/lms/index.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/lms/about.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/lms/enrollStudentUser.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/wx.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/wx/**" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/lms/saveStudentUser.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/lms/checkStudentUserPhone.do" access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/images/**"    access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/ossUpload/**"    access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/m8/**"    access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/scripts/**"    access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/theme/**"    access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <!--<intercept-url pattern="/favicon.ico"    access="IS_AUTHENTICATED_ANONYMOUSLY"/>-->
+        <intercept-url pattern="/**/order/form.do" access="isAuthenticated()"/>
+        <intercept-url pattern="/**/order/packageOrder.do" access="isAuthenticated()"/>
+        <intercept-url pattern="/**/order/packagePhotographerOrder.do" access="isAuthenticated()"/>
+        <intercept-url pattern="/**/order/join.do" access="isAuthenticated()"/>
+        <intercept-url pattern="/**/formCustomization.do" access="isAuthenticated()"/>
+        <intercept-url pattern="/**/guide/save.do" access="isAuthenticated()"/>
+        <intercept-url pattern="/**/consumerMenu/**" access="isAuthenticated()"/>
+        <intercept-url pattern="/**/photographerMenu/**" access="isAuthenticated()" />
+
+        <!--<intercept-url pattern="/**/photographerMenu/**" access="i" />-->
+
+        <anonymous key="cookie_key" username="ananoymous" granted-authority="anonymous,ROLE_ANONYMOUS"/>
+        <form-login login-page="/pc/login.do" login-processing-url="/j_spring_security_check"
+                    authentication-success-handler-ref="loginSuccessHandler"
+                    authentication-failure-handler-ref="loginFailureHandler"/>
+        <logout invalidate-session="true" logout-url="/j_spring_security_logout"
+                success-handler-ref="loginOutSuccessHandler"/>
+
+
+    </http>
+    <b:bean id="loginOutSuccessHandler" class="com.ming800.organization.LoginOutSuccessHandler"/>
+
+    <authentication-manager>
+        <authentication-provider user-service-ref="userManager">
+            <password-encoder hash="sha"/>
+        </authentication-provider>
+    </authentication-manager>
+
+</b:beans>

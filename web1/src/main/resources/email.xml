@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+
+    <!-- 属性文件加载 -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!-- <value>classpath:mail.properties</value> -->
+                <value>classpath:mail.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 邮件发送器 -->
+    <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.163.com"/>
+        <property name="username" value="mingribo800@163.com"/>
+        <property name="password" value="newrace2002"/>
+        <property name="defaultEncoding" value="UTF-8"/>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.timeout">25000</prop>
+            </props>
+        </property>
+    </bean>
+
+    <!-- <bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="resourceLoaderPath" value="classpath:velocity"></property>
+    </bean>
+
+   <bean id="templateMail" class="com.ming800.core.util.MailUtil">
+        <property name="javaMailSender" ref="mailSender"></property>
+        <property name="from" value="${mail.from}"></property>
+        <property name="encoding" value="UTF-8"></property>
+        <property name="templateLocation" value="hello.vm"></property>
+        <property name="velocityEngine" ref="velocityEngine"></property>
+        <property name="title" value="www.ming800.com"></property>
+    </bean>-->
+
+</beans>
