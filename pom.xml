@@ -13,6 +13,7 @@
         <module>base</module>
         <module>t1</module>
         <module>web1</module>
+        <module>ef-model</module>
     </modules>
 
     <repositories>

@@ -30,10 +30,7 @@ public class XdoDaoSupport implements XdoDao {
     private SessionFactory sessionFactory;
 
     public Session getSession() {
-
-
 //        sessionFactory
-
         return sessionFactory.getCurrentSession();
     }
 

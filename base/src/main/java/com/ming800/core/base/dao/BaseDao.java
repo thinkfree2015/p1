@@ -16,27 +16,27 @@ import java.util.List;
  */
 public interface BaseDao<T> {
 
-    public T getObject(Integer id);
+    T getObject(Integer id);
 
-    public T getObject(String id);
+    T getObject(String id);
 
-    public void saveObject(T entity);
+    void saveObject(T entity);
 
-    public void updateObject(T entity);
+    void updateObject(T entity);
 
-    public void saveOrUpdateObject(T entity);
+    void saveOrUpdateObject(T entity);
 
-    public void deleteObject(T entity);
+    void deleteObject(T entity);
 
-    public List<T> getObjectList(String hql, Object... params);
+    List<T> getObjectList(String hql, Object... params);
 
-    public T getUniqueObjectByConditions(String queryHql, LinkedHashMap<String, Object> queryParamMap);
+    T getUniqueObjectByConditions(String queryHql, LinkedHashMap<String, Object> queryParamMap);
 
-    public List<T> getObjectListByConditions(String queryHql, LinkedHashMap<String, Object> queryParamMap);
+    List<T> getObjectListByConditions(String queryHql, LinkedHashMap<String, Object> queryParamMap);
 
-    public PageInfo getPageByConditions(PageEntity pageEntity, String queryString, Object... params);
+    PageInfo getPageByConditions(PageEntity pageEntity, String queryString, Object... params);
 
-    public PageInfo getPageByConditions(PageEntity pageEntity, String queryHql, LinkedHashMap<String, Object> queryParamMap);
+    PageInfo getPageByConditions(PageEntity pageEntity, String queryHql, LinkedHashMap<String, Object> queryParamMap);
 
-    public PageInfo getPage(Query listQuery, Query countQuery, PageEntity pageEntity);
+    PageInfo getPage(Query listQuery, Query countQuery, PageEntity pageEntity);
 }
