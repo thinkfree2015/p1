@@ -8,13 +8,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>t1</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <name>t1</name>
     <url>http://maven.apache.org</url>
-    <modules>
-        <module>../ef-model</module>
-    </modules>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

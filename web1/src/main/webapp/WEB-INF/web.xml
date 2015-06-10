@@ -12,11 +12,11 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            applicationContext-dao.xml,
-            applicationContext-resources.xml,
-            applicationContext-security.xml,
-            applicationContext-i18n.xml,
-            applicationContext-service.xml
+            /WEB-INF/applicationContext-dao.xml,
+            /WEB-INF/applicationContext-resources.xml,
+            /WEB-INF/applicationContext-security.xml,
+            /WEB-INF/applicationContext-i18n.xml,
+            /WEB-INF/applicationContext-service.xml
         </param-value>
     </context-param>
 
@@ -107,7 +107,14 @@
             com.opensymphony.module.sitemesh.filter.PageFilter
         </filter-class>
     </filter>
-
+    <filter>
+        <filter-name>springSecurityFilterChain2</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter>
+        <filter-name>springSecurityFilterChain3</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
 
 
     <!--<filter>-->
@@ -159,14 +166,24 @@
         <filter-name>lazyLoadingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-
     <filter-mapping>
-        <filter-name>sitemesh</filter-name>
+        <filter-name>springSecurityFilterChain2</filter-name>
         <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
     </filter-mapping>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain3</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!--
+        <filter-mapping>
+            <filter-name>sitemesh</filter-name>
+            <url-pattern>/*</url-pattern>
+            <dispatcher>REQUEST</dispatcher>
+            <dispatcher>FORWARD</dispatcher>
+            <dispatcher>INCLUDE</dispatcher>
+        </filter-mapping>
+    -->
 
 
 
