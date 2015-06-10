@@ -1,6 +1,6 @@
 package com.efeiyi.ec.purchase.model;
 
-import com.efeiyi.ec.orgnization.model.User;
+import com.efeiyi.ec.orgnization.model.Consumer;
 import com.efeiyi.ec.product.model.Product;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,7 +19,7 @@ public class PurchaseOrder {
     private List<Product> purchaseProductList;
     private Date createDatetime;
     private String payWay;
-    private User user;
+    private Consumer user;
 
     @Id
     @GenericGenerator(name = "id", strategy = "com.ming800.core.p.model.M8idGenerator")
@@ -70,11 +70,11 @@ public class PurchaseOrder {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public User getUser() {
+    public Consumer getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Consumer user) {
         this.user = user;
     }
 }

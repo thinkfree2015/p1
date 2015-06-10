@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Tenant {
     private String id;
     private String name;
-    private User user;
+    private Consumer user;
 
 
     @Id
@@ -37,11 +37,11 @@ public class Tenant {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    public User getUser() {
+    public Consumer getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Consumer user) {
         this.user = user;
     }
 }

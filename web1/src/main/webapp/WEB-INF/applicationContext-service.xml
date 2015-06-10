@@ -14,8 +14,7 @@
     http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
     http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
-    http://www.springframework.org/schema/task
-    http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+    ">
 
     <!--<task:scheduled-tasks>-->
     <!--<task:scheduled ref="smsManagerImpl" method="scheduleCheckSms" cron="0 0/10 * * * *"/>&lt;!&ndash;每隔十分钟执行一次&ndash;&gt;-->
@@ -23,7 +22,6 @@
 
     <context:annotation-config/>
     <context:component-scan base-package="com.ming800"/>
-    <context:component-scan base-package="com.yuepaila"/>
 
     <!-- 定义切面 -->
     <aop:config>
@@ -46,13 +44,12 @@
     <!-- menu -->
     <bean id="jmenuManagerImpl" class="com.ming800.core.p.service.impl.JmenuManagerImpl" init-method="initMenu"
           scope="singleton"/>
-    <bean id="shotTypeManagerImpl" class="com.yuepaila.basic.service.impl.ShotTypeManagerImpl"
-          init-method="initShotTypes" scope="singleton"/>
+
     <!--<bean id="cityShotTypeManagerImpl" class="com.yuepaila.basic.service.impl.CityManagerImpl" init-method="initCities" scope="singleton"/>-->
     <bean id="versionManagerImpl" class="com.ming800.core.p.service.impl.VersionManagerImpl" init-method="loadVersion"
           scope="singleton"/>
-    <bean id="menuManagerImpl" class="com.yuepaila.basic.service.impl.MenuManagerImpl" init-method="initMenu"
-          scope="singleton"/>
+<!--    <bean id="menuManagerImpl" class="com.yuepaila.basic.service.impl.MenuManagerImpl" init-method="initMenu"
+          scope="singleton"/>-->
 
     <!-- 获取spring上下文applicationContext  用于java读取国际化文件等 -->
     <bean id="applicationContextUtil" class="com.ming800.core.util.ApplicationContextUtil" scope="singleton"/>
@@ -61,11 +58,10 @@
           init-method="readXmlFiles" scope="singleton"/>
     <bean id="moduleManagerImpl" class="com.ming800.core.p.service.impl.ModuleManagerImpl" init-method="readXmlFiles"
           scope="singleton"/>
-    <bean id="checkTaskManagerImpl" class="com.ming800.core.develop.service.impl.CheckTaskManagerImpl"
+<!--    <bean id="checkTaskManagerImpl" class="com.ming800.core.develop.service.impl.CheckTaskManagerImpl"
           init-method="initCheckTask" scope="singleton"/>
     <bean id="gridReportManagerImpl" class="com.ming800.core.bi.service.impl.GridReportManagerImpl"
           init-method="readXmlFiles" scope="singleton"/>
-    <!--<bean id="configManagerImpl" class="com.ming800.organization.service.impl.ConfigManagerImpl" init-method="loadConfigSets" scope="singleton"/>-->
 
     <bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
         <property name="config">
@@ -85,6 +81,6 @@
                 </constructor-arg>
             </bean>
         </property>
-    </bean>
+    </bean>-->
 
 </beans>

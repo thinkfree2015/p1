@@ -1,6 +1,7 @@
-<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_3_0.xsd">
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+             version="3.0">
+
     <context-param>
         <param-name>
             javax.servlet.jsp.jstl.fmt.localizationContext
@@ -11,11 +12,11 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            /WEB-INF/applicationContext-dao.xml,
-            /WEB-INF/applicationContext-resources.xml,
-            /WEB-INF/applicationContext-security.xml,
-            /WEB-INF/applicationContext-i18n.xml,
-            /WEB-INF/applicationContext-service.xml
+            applicationContext-dao.xml,
+            applicationContext-resources.xml,
+            applicationContext-security.xml,
+            applicationContext-i18n.xml,
+            applicationContext-service.xml
         </param-value>
     </context-param>
 
@@ -108,12 +109,6 @@
     </filter>
 
 
-    <filter>
-        <filter-name>cityFilter</filter-name>
-        <filter-class>
-            com.ming800.core.filter.CityFilter
-        </filter-class>
-    </filter>
 
     <!--<filter>-->
     <!--<filter-name>driverFilter</filter-name>-->
@@ -174,14 +169,6 @@
     </filter-mapping>
 
 
-    <filter-mapping>
-        <filter-name>cityFilter</filter-name>
-        <url-pattern>/pc/photographer/list.do</url-pattern>
-        <url-pattern>/pc/home.do</url-pattern>
-        <url-pattern>*</url-pattern>
-        <url-pattern>/</url-pattern>
-        <!--<url-pattern>/*</url-pattern>-->
-    </filter-mapping>
 
     <!--<filter-mapping>-->
     <!--<filter-name>driverFilter</filter-name>-->
@@ -204,65 +191,6 @@
         <load-on-startup>1</load-on-startup>
         </servlet> -->
 
-    <servlet>
-        <servlet-name>Kaptcha</servlet-name>
-        <servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
-        <!-- 设置是否有边框 -->
-        <init-param>
-            <param-name>kaptcha.border</param-name>
-            <param-value>yes</param-value>
-        </init-param>
-        <!-- 设置边框颜色-->
-        <init-param>
-            <param-name>kaptcha.border.color</param-name>
-            <param-value>105,179,90</param-value>
-        </init-param>
-        <!-- 获取中文 -->
-        <init-param>
-            <param-name>kaptcha.textproducer.impl</param-name>
-            <param-value>org.cric.util.ChineseText</param-value>
-        </init-param>
-        <!-- 设置字体颜色 -->
-        <init-param>
-            <param-name>kaptcha.textproducer.font.color</param-name>
-            <param-value>black</param-value>
-        </init-param>
-        <!-- 设置验证码宽度 -->
-        <init-param>
-            <param-name>kaptcha.image.width</param-name>
-            <param-value>150</param-value>
-        </init-param>
-        <!-- 设置验证码高度 -->
-        <init-param>
-            <param-name>kaptcha.image.height</param-name>
-            <param-value>40</param-value>
-        </init-param>
-        <!-- 设置字体大小 -->
-        <init-param>
-            <param-name>kaptcha.textproducer.font.size</param-name>
-            <param-value>30</param-value>
-        </init-param>
-        <!-- 设置字体个数 -->
-        <init-param>
-            <param-name>kaptcha.textproducer.char.length</param-name>
-            <param-value>4</param-value>
-        </init-param>
-        <!--设置字体样式-->
-        <init-param>
-            <param-name>kaptcha.textproducer.font.names</param-name>
-            <param-value>宋体,楷体,微软雅黑</param-value>
-        </init-param>
-        <init-param>
-            <description>The noise producer.</description>
-            <param-name>kaptcha.noise.impl</param-name>
-            <param-value>com.google.code.kaptcha.impl.NoNoise</param-value>
-        </init-param>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Kaptcha</servlet-name>
-        <url-pattern>/kaptcha.jpg</url-pattern>
-    </servlet-mapping>
 
     <servlet>
         <servlet-name>default</servlet-name>
@@ -330,27 +258,27 @@
     <!--<servlet-name>comet1</servlet-name>-->
     <!--<url-pattern>/info/comet1</url-pattern>-->
     <!--</servlet-mapping>-->
-    <jsp-config>
-        <!--增加自定义标签 -->
+<!--    <jsp-config>
+        &lt;!&ndash;增加自定义标签 &ndash;&gt;
         <taglib>
-            <!-- 确定标签库的URI-->
+            &lt;!&ndash; 确定标签库的URI&ndash;&gt;
             <taglib-uri>/tags/queryTag.tld</taglib-uri>
-            <!-- 确定标签库定义文件的位置 -->
+            &lt;!&ndash; 确定标签库定义文件的位置 &ndash;&gt;
             <taglib-location>/WEB-INF/taglib/ming800.tld</taglib-location>
         </taglib>
-    </jsp-config>
+    </jsp-config>-->
 
 
     <session-config>
         <session-timeout>90</session-timeout>
     </session-config>
 
-    <error-page>
+<!--    <error-page>
         <error-code>500</error-code>
         <location>/common/error.jsp</location>
     </error-page>
 
     <welcome-file-list>
         <welcome-file>/pc/home.do</welcome-file>
-    </welcome-file-list>
+    </welcome-file-list>-->
 </web-app>
