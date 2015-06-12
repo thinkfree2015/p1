@@ -40,14 +40,5 @@
             </props>
         </property>
     </bean>
-    <!--
-        <bean id="templateMail" class="com.ming800.core.util.MailUtil">
-            <property name="javaMailSender" ref="mailSender"/>
-            <property name="from" value="${mail.from}"/>
-            <property name="encoding" value="UTF-8"/>
-            <property name="templateLocation" value="hello.vm"/>
-            <property name="velocityEngine" ref="velocityEngine"/>
-            <property name="title" value="www.ming800.com"/>
-        </bean>
-     -->
+
 </beans>

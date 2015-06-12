@@ -13,6 +13,9 @@
     <url>http://maven.apache.org</url>
 
     <dependencies>
+
+
+
         <dependency>
             <groupId>com.efeiyi.ec</groupId>
             <artifactId>base</artifactId>
@@ -28,7 +31,25 @@
         </dependency>
 
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <!-- Import dependency management from Spring Boot -->
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>1.2.4.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <build>
         <finalName>web1</finalName>
     </build>
+
+    <properties>
+        <java.version>1.7</java.version>
+    </properties>
 </project>

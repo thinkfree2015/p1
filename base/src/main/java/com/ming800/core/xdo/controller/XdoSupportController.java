@@ -10,7 +10,6 @@ import com.ming800.core.p.model.Xentity;
 import com.ming800.core.p.model.Module;
 import com.ming800.core.p.service.ModuleManager;
 import com.ming800.core.p.service.VersionManager;
-import com.ming800.core.taglib.PageEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -83,7 +82,7 @@ public class XdoSupportController {
     @RequestMapping("/xme.do")
     public ModelAndView xme(HttpServletRequest request, ModelMap modelMap) throws Exception {
 
-        String url = "";
+        String url;
         String type = request.getParameter("type");
         modelMap.put("type", type);
 
@@ -133,8 +132,11 @@ public class XdoSupportController {
         return new ModelAndView(url);
     }
 
+/*
 
-    /*通用页面*/
+    */
+/*通用页面*//*
+
     @RequestMapping("/xlistPage.do")
     @ResponseBody
     public String xlistPage(EasyuiDataGrid easyuiDataGrid, HttpServletRequest request) throws Exception {
@@ -173,6 +175,7 @@ public class XdoSupportController {
 
         return xdoManager.generateResultListPage(qms[0], tempDo, tempDoQuery, tempPage, conditions, pageEntity);
     }
+*/
 
 
 

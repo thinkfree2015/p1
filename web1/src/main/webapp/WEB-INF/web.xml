@@ -1,301 +1,52 @@
-<web-app xmlns="http://java.sun.com/xml/ns/javaee"      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             xsi:schemaLocation="http://java.sun.com/xml/ns/javaee   http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
-             version="3.0">
-
-    <context-param>
-        <param-name>
-            javax.servlet.jsp.jstl.fmt.localizationContext
-        </param-name>
-        <param-value>ApplicationResources-*</param-value>
-    </context-param>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://java.sun.com/xml/ns/javaee"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         id="WebApp_ID" version="3.0">
+    <display-name>Archetype Created Web Application</display-name>
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>
-            /WEB-INF/applicationContext-dao.xml,
-            /WEB-INF/applicationContext-resources.xml,
-            /WEB-INF/applicationContext-security.xml,
-            /WEB-INF/applicationContext-i18n.xml,
-            /WEB-INF/applicationContext-service.xml
-        </param-value>
+        <param-value>/WEB-INF/applicationContext-*.xml</param-value>
     </context-param>
-
-    <!--    <context-param>
-        <param-name>log4jExposeWebAppRoot</param-name>
-        <param-value>true</param-value>
-    </context-param>
-    <context-param>
-        <param-name>webAppRootKey</param-name>
-        <param-value>webapp.root</param-value>
-    </context-param>
-    <context-param>
-        <param-name>log4jConfigLocation</param-name>
-        <param-value>/WEB-INF/classes/log4j.properties</param-value>
-    </context-param>
-    <context-param>
-        <param-name>log4jRefreshInterval</param-name>
-        <param-value>3000</param-value>
-    </context-param>
-     <listener>
-        <listener-class>
-            org.springframework.web.util.Log4jConfigListener
-        </listener-class>
-    </listener>-->
-    <listener>
-        <listener-class>
-            org.springframework.web.util.IntrospectorCleanupListener
-        </listener-class>
-    </listener>
-    <listener>
-        <listener-class>
-            org.springframework.web.context.ContextLoaderListener
-        </listener-class>
-    </listener>
-    <listener>
-        <listener-class>
-            org.springframework.web.context.request.RequestContextListener
-        </listener-class>
-    </listener>
-
-    <context-param>
-        <param-name>log4jConfigLocation</param-name>
-        <param-value>/WEB-INF/log4j.properties</param-value>
-    </context-param>
-    <listener>
-        <listener-class>
-            org.springframework.web.util.Log4jConfigListener
-        </listener-class>
-    </listener>
-
-
     <filter>
-        <filter-name>encodingFilter</filter-name>
-        <filter-class>
-            org.springframework.web.filter.CharacterEncodingFilter
-        </filter-class>
-        <init-param>
-            <param-name>encoding</param-name>
-            <param-value>UTF-8</param-value>
-        </init-param>
-        <init-param>
-            <param-name>forceEncoding</param-name>
-            <param-value>true</param-value>
-        </init-param>
-    </filter>
-    <filter-mapping>
-        <filter-name>encodingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-    </filter-mapping>
-    <filter>
-        <filter-name>lazyLoadingFilter</filter-name>
-        <filter-class>
-            org.springframework.orm.hibernate4.support.OpenSessionInViewFilter
-        </filter-class>
+        <filter-name>filterChainProxy</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
-
-
-    <filter>
-        <filter-name>sitemesh</filter-name>
-        <filter-class>
-            com.opensymphony.module.sitemesh.filter.PageFilter
-        </filter-class>
-    </filter>
-    <filter>
-        <filter-name>springSecurityFilterChain2</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-    <filter>
-        <filter-name>springSecurityFilterChain3</filter-name>
-        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
-    </filter>
-
-
-    <!--<filter>-->
-    <!--<filter-name>driverFilter</filter-name>-->
-    <!--<filter-class>-->
-    <!--com.ming800.core.filter.DriverFilter-->
-    <!--</filter-class>-->
-    <!--</filter>-->
-
-
-    <!-- UrlRewriteFilter filter -->
-    <!--	<filter>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <filter-class>org.tuckey.web.filters.urlrewrite.UrlRewriteFilter</filter-class>
-        <init-param>
-        <param-name>logLevel</param-name>
-        <param-value>WARN</param-value>
-        </init-param>
-        </filter>-->
-    <!--<filter>-->
-    <!--<filter-name>licenseFilter</filter-name>-->
-    <!--<filter-class>com.ming800.common.filter.LicenseFilter</filter-class>-->
-    <!--</filter>-->
-
-    <!--	<filter-mapping>
-        <filter-name>UrlRewriteFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        </filter-mapping>-->
-    <!--<filter-mapping>-->
-    <!--<filter-name>licenseFilter</filter-name>-->
-    <!--<url-pattern>/*</url-pattern>-->
-    <!--<dispatcher>REQUEST</dispatcher>-->
-    <!--<dispatcher>FORWARD</dispatcher>-->
-    <!--<dispatcher>INCLUDE</dispatcher>-->
-    <!--</filter-mapping>-->
-    <!-- UrlRewriteFilter filter End-->
-
     <filter-mapping>
-        <filter-name>springSecurityFilterChain</filter-name>
-        <url-pattern>/j_spring_security_check</url-pattern>
+        <filter-name>filterChainProxy</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
-    <filter-mapping>
-        <filter-name>lazyLoadingFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain2</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
-    <filter-mapping>
-        <filter-name>springSecurityFilterChain3</filter-name>
-        <url-pattern>/*</url-pattern>
-    </filter-mapping>
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
-    <!--
-        <filter-mapping>
-            <filter-name>sitemesh</filter-name>
-            <url-pattern>/*</url-pattern>
-            <dispatcher>REQUEST</dispatcher>
-            <dispatcher>FORWARD</dispatcher>
-            <dispatcher>INCLUDE</dispatcher>
-        </filter-mapping>
-    -->
-
-
-
-    <!--<filter-mapping>-->
-    <!--<filter-name>driverFilter</filter-name>-->
-    <!--<url-pattern>/pc/photographer/list.do</url-pattern>-->
-    <!--<url-pattern>/pc/home.do</url-pattern>-->
-    <!--<url-pattern>*</url-pattern>-->
-    <!--<url-pattern>/</url-pattern>-->
-    <!--</filter-mapping>-->
-
-
-    <!-- <servlet>
-        <servlet-name>ServletConfigurator</servlet-name>
-        <servlet-class>
-        org.logicalcobwebs.proxool.configuration.ServletConfigurator
-        </servlet-class>
-        <init-param>
-        <param-name>xmlFile</param-name>
-        <param-value>WEB-INF/proxool.xml</param-value>
-        </init-param>
-        <load-on-startup>1</load-on-startup>
-        </servlet> -->
-
-
+    <!-- 定义DispatcherServlet -->
     <servlet>
-        <servlet-name>default</servlet-name>
-        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
-            <param-name>debug</param-name>
-            <param-value>0</param-value>
+            <!-- 默认/WEB-INF/[servlet名字]-servlet.xml加载上下文，
+                如果配置了contextConfigLocation参数，
+                将使用classpath:/lei-dispatcher-servlet.xml加载上下文
+            -->
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring-servlet.xml</param-value>
         </init-param>
-        <init-param>
-            <param-name>listings</param-name>
-            <param-value>false</param-value>
-        </init-param>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>default</servlet-name>
-        <url-pattern>/favicon.ico</url-pattern>
-        <url-pattern>/@!pc-homepage-big</url-pattern>
-        <url-pattern>/@!pc-homepage-small</url-pattern>
-        <url-pattern>/baidu_verify_4U6bjKI1iv.html</url-pattern>
-
-    </servlet-mapping>
-
-
-    <servlet>
-        <servlet-name>spring</servlet-name>
-        <servlet-class>
-            org.springframework.web.servlet.DispatcherServlet
-        </servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <!-- 拦截匹配的请求，这里所有请求采用名字为lei-dispatcher的DispatcherServlet处理 -->
     <servlet-mapping>
-        <servlet-name>spring</servlet-name>
-        <url-pattern>*.do</url-pattern>
+        <servlet-name>mvc-dispatcher</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-
-    <!--  <filter>
-          <filter-name>dsFilter</filter-name>
-          <filter-class>
-              com.ming800.core.base.model.MyFilter
-          </filter-class>
-      </filter>
-      <filter-mapping>
-          <filter-name>dsFilter</filter-name>
-          <url-pattern>/*</url-pattern>
-      </filter-mapping>-->
-    <!--<servlet>-->
-    <!--<servlet-name>comet</servlet-name>-->
-    <!--<servlet-class>com.ming800.oa.info.message.action.TestServlet</servlet-class>-->
-    <!--</servlet>-->
-
-    <!--<servlet-mapping>-->
-    <!--<servlet-name>comet</servlet-name>-->
-    <!--<url-pattern>/info/comet</url-pattern>-->
-    <!--</servlet-mapping>-->
-
-    <!--<servlet>-->
-    <!--<servlet-name>comet1</servlet-name>-->
-    <!--<servlet-class>com.ming800.oa.info.message.action.TestComet</servlet-class>-->
-    <!--</servlet>-->
-
-    <!--<servlet-mapping>-->
-    <!--<servlet-name>comet1</servlet-name>-->
-    <!--<url-pattern>/info/comet1</url-pattern>-->
-    <!--</servlet-mapping>-->
-<!--    <jsp-config>
-        &lt;!&ndash;增加自定义标签 &ndash;&gt;
-        <taglib>
-            &lt;!&ndash; 确定标签库的URI&ndash;&gt;
-            <taglib-uri>/tags/queryTag.tld</taglib-uri>
-            &lt;!&ndash; 确定标签库定义文件的位置 &ndash;&gt;
-            <taglib-location>/WEB-INF/taglib/ming800.tld</taglib-location>
-        </taglib>
-    </jsp-config>-->
-
-
-    <session-config>
-        <session-timeout>90</session-timeout>
-    </session-config>
-
-<!--    <error-page>
-        <error-code>500</error-code>
-        <location>/common/error.jsp</location>
-    </error-page>
-
-    <welcome-file-list>
-        <welcome-file>/pc/home.do</welcome-file>
-    </welcome-file-list>-->
 </web-app>

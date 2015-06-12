@@ -123,7 +123,7 @@ public class BaseManagerImpl implements BaseManager {
         return xdoDao.executeSql(type, queryStr, queryParamMap);  //To change body of implemented methods use File | Settings | File Templates.
     }
 
-    @Override
+/*    @Override
     public Boolean executeBranchData(String name) {
 
         String tNameQueryStr = " show tables ";
@@ -138,13 +138,13 @@ public class BaseManagerImpl implements BaseManager {
         System.err.print(i);
 
         return true;  //To change body of implemented methods use File | Settings | File Templates.
-    }
+    }*/
 
 
     @Override
     public Map<Field, List<StatusTypeItem>> listStatusType(String entityName, List<String> fieldNameList) {
         ModuleManager mm = new ModuleManagerImpl();
-        Map<String, Module> mmap = mm.fetchModuleMap();
+        //Map<String, Module> mmap = mm.fetchModuleMap();
         Map<String, Xentity> xmap = mm.fetchXentityMap();
         Map<Field, List<StatusTypeItem>> categaryList = new LinkedHashMap<Field, List<StatusTypeItem>>();
         Xentity xentity = xmap.get(entityName);

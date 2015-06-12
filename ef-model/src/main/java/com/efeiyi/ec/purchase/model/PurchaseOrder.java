@@ -16,7 +16,7 @@ import java.util.List;
 public class PurchaseOrder {
     private String id;
     private String serial;
-    private List<Product> purchaseProductList;
+    private List<PurchaseProduct> purchaseProductList;
     private Date createDatetime;
     private String payWay;
     private Consumer user;
@@ -42,11 +42,11 @@ public class PurchaseOrder {
     }
 
     @OneToMany(fetch = FetchType.LAZY)
-    public List<Product> getPurchaseProductList() {
+    public List<PurchaseProduct> getPurchaseProductList() {
         return purchaseProductList;
     }
 
-    public void setPurchaseProductList(List<Product> purchaseProductList) {
+    public void setPurchaseProductList(List<PurchaseProduct> purchaseProductList) {
         this.purchaseProductList = purchaseProductList;
     }
 

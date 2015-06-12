@@ -5,14 +5,12 @@ import com.ming800.core.xdo.service.XdoManager;
 import com.ming800.core.xdo.service.XdoSupportManager;
 import com.ming800.core.does.model.*;
 import com.ming800.core.does.service.DoManager;
-import com.ming800.core.p.PConst;
-import com.ming800.core.p.model.SystemLog;
 import com.ming800.core.p.service.ModuleManager;
 import com.ming800.core.taglib.PageEntity;
-import com.ming800.core.util.AuthorizationUtil;
 import com.ming800.core.util.PageInfo;
 import com.ming800.core.util.ReflectUtil;
 import com.ming800.core.util.SystemValueUtil;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -23,7 +21,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,10 +53,10 @@ public class XdoController {
 
         
         Map map = request.getParameterMap();
-        for (Object key : map.keySet()) {
+/*        for (Object key : map.keySet()) {
             String[] values = (String[]) map.get(key);
             modelMap.put(key.toString(), values[0]);
-        }
+        }*/
 
         String qm = request.getParameter("qm");
         String resultPage = "";
@@ -67,10 +64,10 @@ public class XdoController {
 
         if (qm.startsWith("plist")) {       /*分页*/
             String conditions = request.getParameter("conditions");
-            String mrb = request.getParameter("mrb");
+/*            String mrb = request.getParameter("mrb");
             if (mrb != null && !mrb.equals("")) {
                 modelMap.put("mrb", mrb);
-            }
+            }*/
             if (qm.split("_").length < 2) {
                 throw new Exception("qm:" + qm + "的具体查询部分没有定义即'_'的后半部分没有定义");
             }
@@ -90,6 +87,7 @@ public class XdoController {
                 modelMap.put("doResult", baseManager.getObject(DoResult.class.getName(), doResultId));
                 tempPageList = (List<Page>) xdoManager.list("listPageByDoResult_default", "doResult.id:" + doResultId);
             }
+
             String export = request.getParameter("resultPage");
             Page tempPage = null;
             if (tempPageList != null && tempPageList.size() > 0) {
@@ -101,10 +99,11 @@ public class XdoController {
                 tempPage = tempDo.getPageList().get(0);
             }
             modelMap.put("tempPage", tempPage);
-            /*如果自定义了xpage  而且不是导出， 进入通用页面*/
+
+/*            *//*如果自定义了xpage  而且不是导出， 进入通用页面*//*
             if (export == null && tempPageList != null && tempPageList.size() > 0) {
                 resultPage = "xpage";
-            }
+            }*/
 
             PageEntity pageEntity = new PageEntity();
             String pageIndex = request.getParameter("pageEntity.index");
@@ -114,26 +113,26 @@ public class XdoController {
                 pageEntity.setSize(Integer.parseInt(pageSize));
             }
 
-            /*导出，  通用， 普通jsp页面*/
+/*            *//*导出，  通用， 普通jsp页面*//*
             if (export != null && export.equals("xexcel")) {            //导出
                 modelMap.put("objectList", xdoManager.list(tempDo, tempDoQuery, conditions));
 //                resultPage = "export_excel_view_list";
                 request.setAttribute("modelMap", modelMap);
-                resultPage = "forward:/excelExportController/buildExcelDocument.do";
-            } else if (resultPage.startsWith("xpage")) {
+                resultPage = "forward:/excelExportController/buildExcelDocument.do";*/
+/*            } else if (resultPage.startsWith("xpage")) {
                 if (conditions != null) {
                     String tempConditions = java.net.URLEncoder.encode(conditions, "utf-8");
                     modelMap.put("tempConditions", tempConditions);
                 }
 
                 modelMap.put("pageEntity", pageEntity);
-                if (resultPage.equals("xpage")) {
+/*                if (resultPage.equals("xpage")) {
                     resultPage = "/core/base/xlistPage";
                 } else {
                     modelMap.put("index", request.getParameter("index"));
                     resultPage = "/core/base/relatedPage";
-                }
-            } else {
+                }*/
+/*            } else {*/
 
                 modelMap.put("tabTitle", tempDoQuery.getLabel());
 //                resultPage = "/pc/choiceness";
@@ -144,11 +143,13 @@ public class XdoController {
 //                返回列表
                 xdoSupportManager.generateTempPageConditions(request.getRequestURI(), map, pageEntity.getIndex() + "", pageEntity.getSize() + "");
                 // xdoSupportManager.generateTempPageConditions(request.getRequestURI(), map, 1 + "", 20 + "");
-            }
 
+
+/*
             if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
                 modelMap = xdoSupportManager.execute(tempDo, modelMap, request);
             }
+*/
 
 
         } else if (qm.startsWith("list")) {           /*不分页*/
@@ -164,12 +165,12 @@ public class XdoController {
             modelMap.put("objectList", xdoManager.list(tempDo, tempDoQuery, conditions));
             resultPage = tempDo.getResult();
 
-            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
+/*            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
                 modelMap = xdoSupportManager.execute(tempDo, modelMap, request);
-            }
+            }*/
 
-            String export = request.getParameter("resultPage");
-            if (export != null && export.equals("xexcel")) {
+            //String export = request.getParameter("resultPage");
+           /* if (export != null && export.equals("xexcel")) {
                 if (tempDo.getPageList() == null || tempDo.getPageList().size() == 0) {
                     throw new Exception("缺少页面配置,无法导出!");
                 }
@@ -182,8 +183,8 @@ public class XdoController {
                 }
 //                resultPage = "export_excel_view_list";
                 request.setAttribute("modelMap", modelMap);
-                resultPage = "forward:/excelExportController/buildExcelDocument.do";
-            }
+                //resultPage = "forward:/excelExportController/buildExcelDocument.do";
+            }*/
 
 
         } else if (qm.startsWith("view") || qm.startsWith("form")) {
@@ -202,7 +203,7 @@ public class XdoController {
 
             resultPage = tempDo.getResult();
             modelMap.put("tempPageList", tempDo.getPageList());
-            if (resultPage.equals("xviewpage") || resultPage.equals("xformpage") || resultPage.equals("relatedviewpage") || resultPage.equals("relatedformpage")) {
+/*            if (resultPage.equals("xviewpage") || resultPage.equals("xformpage") || resultPage.equals("relatedviewpage") || resultPage.equals("relatedformpage")) {
                 modelMap.put("jsonData", xdoManager.generateResultViewPage(tempDo, id, conditions));
                 if (resultPage.equals("xviewpage")) {
                     resultPage = "/core/base/xviewPage";
@@ -214,47 +215,46 @@ public class XdoController {
                 } else if (resultPage.equals("relatedformpage")) {
                     resultPage = "/core/base/relatedformPage";
                 }
-            } else {
+            } else {*/
                 modelMap.put("object", xdoManager.fetchObject(tempDo, id, conditions));
                 resultPage = xdoManager.convertPageUrl(resultPage, modelMap.get("object"));
-            }
+           // }
 
-            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
+/*            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
                 modelMap = xdoSupportManager.execute(tempDo, modelMap, request);
-            }
+            }*/
 
         } else if (qm.startsWith("remove")) {  //假删
             String id = request.getParameter("id");
             Do tempDo = doManager.getDoByQueryModel(qm);
             modelMap.put("tempDo", tempDo);
-            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
+/*            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
                 modelMap = xdoSupportManager.execute(tempDo, modelMap, request);
-            }
+            }*/
             resultPage = xdoManager.removeObject(tempDo, id);
         } else if (qm.startsWith("delete")) {  //真删
             String id = request.getParameter("id");
             Do tempDo = doManager.getDoByQueryModel(qm);
             modelMap.put("tempDo", tempDo);
-            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
+/*            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
                 modelMap = xdoSupportManager.execute(tempDo, modelMap, request);
-            }
+            }*/
             resultPage = xdoManager.deleteObject(tempDo, id);
         } else if (qm.startsWith("saveOrUpdate")) {
             Do tempDo = doManager.getDoByQueryModel(qm);
 
-
             tempDo.getPageList();
             Object object = null;
-            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
+/*            if (tempDo.getExecute() != null && !tempDo.getExecute().equals("")) {
                 modelMap.put("tempDo", tempDo);
                 modelMap = xdoSupportManager.execute(tempDo, modelMap, request);
 
                 object = modelMap.get("object");
                 baseManager.saveOrUpdate(object.getClass().getName(), object);
-            } else {
+            } else {*/
                 object = xdoManager.saveOrUpdateObject(tempDo, request);
                 modelMap.put("object", object);
-            }
+            //}
 
             String tempResultPage = request.getParameter("resultPage");
 
@@ -270,68 +270,15 @@ public class XdoController {
                 resultPage += "?mrb=success";
             }*/
 
-        } else if (qm.startsWith("xchart")) {
-            String conditions = request.getParameter("conditions");
 
-            Do tempDo = doManager.getDoByQueryModel(qm.split("_")[0]);
-            DoQuery tempDoQuery = tempDo.getDoQueryByName(qm.split("_")[1]);
-            modelMap.put("tempDo", tempDo);
-            //modelMap.put("jsonData", xdoManager.generateJsonData(tempDo, tempDoQuery, conditions));
-
-            if (tempDo.getResult().equals("pie")) {
-                resultPage = "/core/base/chartPies";
-            } else {
-                resultPage = "/core/base/charts";
-            }
-        } else if (qm.startsWith("xreport")) {
-            String conditions = request.getParameter("conditions");
-
-            Do tempDo = doManager.getDoByQueryModel(qm.split("_")[0]);
-            DoQuery tempDoQuery = tempDo.getDoQueryByName(qm.split("_")[1]);
-            modelMap.put("tempDo", tempDo);
-
-            long date1 = System.currentTimeMillis();
-            if (tempDo.getResult().equals("matrix")) {
-                //modelMap.put("tempMap", xdoManager.generateReportData(tempDo, tempDoQuery, conditions));
-                resultPage = "/core/base/reports";
-            } else if (tempDo.getResult().equals("matrixData")) {
-                Page tempPage = tempDo.getPageList().get(0);
-                modelMap.put("tempPage", tempPage);
-                //modelMap.put("tempMap", xdoManager.generateDataReportMatrixData(tempDo, tempDoQuery, tempPage, conditions));
-                resultPage = "/core/base/reports";
-            } else if (tempDo.getResult().equals("groupData")) {
-                Page tempPage = tempDo.getPageList().get(0);
-                modelMap.put("tempPage", tempPage);
-                if (tempDoQuery.getGroupByList().size() > 1) {          //分组条件为两个
-                    //modelMap.put("tempMap", xdoManager.generateDataReportData(tempDo, tempDoQuery, tempPage, conditions));
-                    resultPage = "/core/base/reportData";
-                } else {                                               //分组条件为一个
-                   // modelMap.put("tempMap", xdoManager.generateDataReportData2(tempDo, tempDoQuery, tempPage, conditions));
-                    resultPage = "/core/base/reportData2";
-                }
-            } else if (tempDo.getResult().equals("data")) {
-                //modelMap.put("tempMap", xdoManager.generateNewReportData(tempDo, tempDoQuery, conditions));
-                resultPage = "/core/base/reports";
-
-            }
-
-            long date2 = System.currentTimeMillis();
-            if (date2 - date1 > 1000) {
-                SystemLog systemLog = new SystemLog();
-                systemLog.setContent(tempDo.getName() + "统计超时:" + (date2 - date1));
-                systemLog.setTheDateTime(new Date());
-                //systemLog.setCityShotType(AuthorizationUtil.getMyCity());
-                //systemLog.setUser(AuthorizationUtil.getUser());
-                systemLog.setTheType(PConst.SYSTEM_LOG_THE_TYPE_SPEED);
-                baseManager.saveOrUpdate(systemLog.getClass().getName(), systemLog);
-            }
         }
 
         return new ModelAndView(resultPage);
     }
 
+/*
 
-    @RequestMapping("/xmm.do")
+    @RequestMapping("/xmm.do")   //多附件的情况
     public ModelAndView xmm(HttpServletRequest request, MultipartRequest multipartRequest, ModelMap modelMap) throws Exception {
 
 //        String em = request.getParameter("em");
@@ -341,7 +288,9 @@ public class XdoController {
         modelMap = xdoSupportManager.executeMultipart(tempDo, modelMap, request, multipartRequest);
         Object object = modelMap.get("object");
 
-        /*配置文件*/
+        */
+/*配置文件*//*
+
         if (tempDo.getPageList() != null && tempDo.getPageList().size() > 0) {
             Page tempPage = tempDo.getPageList().get(0);
             for (PageField pageField : tempPage.getFieldList()) {
@@ -370,6 +319,7 @@ public class XdoController {
 
         return new ModelAndView(tempResultPage);
     }
+*/
 
 
     /*返回json*/
@@ -443,7 +393,7 @@ public class XdoController {
                 object = modelMap.get("object");
                 baseManager.saveOrUpdate(object.getClass().getName(), object);
             } else {
-                object = xdoManager.saveOrUpdateObject(tempDo, request);
+                xdoManager.saveOrUpdateObject(tempDo, request);
             }
 
             //return object;
@@ -452,20 +402,16 @@ public class XdoController {
             String fieldName = request.getParameter("fieldName");
 
             return moduleManager.listStatusTypeItem(fieldName);
-        } else if (qm.equals("sumField")) {
-            String queryModel = request.getParameter("queryModel");
-            String conditions = request.getParameter("conditions");
-            Do tempDo = doManager.getDoByQueryModel(queryModel.split("_")[0]);
-            DoQuery tempDoQuery = tempDo.getDoQueryByName(queryModel.split("_")[1]);
-            String countField = request.getParameter("countField");
-            return xdoManager.generateTotalMoney(tempDo, tempDoQuery, conditions, countField);
-        } else {
+        }  else {
             return null;
         }
     }
 
+/*
 
-    /*配置文件   返回json*/
+    */
+/*配置文件   返回json*//*
+
     @RequestMapping("/xlist.do")
     @ResponseBody
     public String xlist(HttpServletRequest request) throws Exception {
@@ -488,18 +434,9 @@ public class XdoController {
 
         return xdoManager.generateResultList(qms[0], tempDo, tempDoQuery, tempPage, conditions);
     }
+*/
 
 
-    @RequestMapping("/spinach/xlist.do")
-    @ResponseBody
-    public String spinachxlist(HttpServletRequest request) throws Exception {
-        return this.xlist(request);
-    }
-
-    @RequestMapping("/spinach/xm.do")
-    public ModelAndView spinachxm(HttpServletRequest request, ModelMap modelMap) throws Exception {
-        return this.xm(request, modelMap);
-    }
 }
 
 

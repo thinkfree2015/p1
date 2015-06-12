@@ -42,26 +42,7 @@ public class XdoManagerImpl implements XdoManager {
 /*    @Autowired
     private PermissionManager permissionManager;*/
 
-    public void saveOrUpdateOperationLog(Do tempDo, String content, String operationType) {
-        //Map<String, String> settingMap = AuthorizationUtil.getMyUser().getSettingMap();
 
-        Boolean operation = true;//settingMap.get("operation");
-
-        if (operation != null && operation.equals("true")) {
-
-            OperationLog operationLog = new OperationLog();
-            operationLog.setUser(AuthorizationUtil.getUser());
-            operationLog.setTheDateTime(new Date());
-            operationLog.setEntityName(tempDo.getXentity().getName());
-            operationLog.setEntityLabel(tempDo.getXentity().getLabel());
-            operationLog.setContent(content);
-            operationLog.setOperationType(operationType);
-
-            xdoDao.saveOrUpdateObject(OperationLog.class.getName(), operationLog);
-
-        }
-
-    }
 
     /**
      * 假删
@@ -1029,6 +1010,117 @@ public class XdoManagerImpl implements XdoManager {
         stringBuilder.append("]");
         return stringBuilder.toString();
     }
+
+
+
+    private Boolean processPermission(String access, Object object, String owner) throws Exception {
+   /*     if(AuthorizationUtil.getMyUser()!=null&&!("").equals(AuthorizationUtil.getMyUser().getId())){
+            if (("system").equals(AuthorizationUtil.getMyUser().getRole())) {
+                return true;
+            }
+        }*/
+
+
+        String ownerId = "";
+        if (!owner.equals("")) {
+
+            String tempOwnerId = owner.substring(owner.indexOf("${") + 2, owner.indexOf("}"));
+            Object id = SystemValueUtil.generateTempObjectValue(object, tempOwnerId.split("\\."));
+            if (id != null) {
+                ownerId = id.toString();
+            }
+        }
+        return true;
+    }
+
+
+    /*FORM 或者 VIEW的时候set指定的值*/
+    private void generateFetchObjectSetValue(Object object, Class objectClass, String fieldName, Object value) {
+
+        try {
+            Field field = objectClass.getDeclaredField(fieldName);
+            field.setAccessible(true);
+            field.set(object, value);
+        } catch (Exception e) {
+            generateFetchObjectSetValue(object, objectClass.getSuperclass(), fieldName, value);
+        }
+
+    }
+
+
+
+    private XQuery executeXQueryHandler(XQuery xQuery, DoQuery doQuery) throws Exception {
+        QueryHandler queryHandler = (QueryHandler) Class.forName(doQuery.getQueryExecute()).newInstance();
+
+        return queryHandler.handle(xQuery);
+    }
+
+    /*list页面    生成operation   操作链接*/
+    public StringBuilder generateOperation(Object object, Page tempPage) throws Exception {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\"操作\":\"");
+        for (Command command : tempPage.getOperationList()) {
+            if (processPermission(command.getPermission(), object, command.getOwner())) {
+                String url = convertPageUrl(command.getUrl(), object);
+                url = ApplicationContextUtil.getApplicationContext().getApplicationName() + url;
+                if (command.getType() != null && command.getType().equals("dialog")) {
+                    stringBuilder.append("<a class='ho' href='###'")
+                            .append(" onclick='artDialog.open(\\\"")
+                            .append(url)
+                            .append("\\\", {width:800,height:600})'")
+                            .append("'>")
+                            .append(command.getLabel())
+                            .append("</a>");
+                } else {
+                    stringBuilder.append("<a class='ho' href='")
+                            .append(url)
+                            .append("'>")
+                            .append(command.getLabel())
+                            .append("</a>");
+                }
+
+
+                stringBuilder.append("   ");
+            }
+        }
+        stringBuilder.append("\",");
+        return stringBuilder;
+    }
+
+    /*转化url中${}中包含的对象属性*/
+    public String convertPageUrl(String pageUrl, Object object) throws Exception {
+
+        while (pageUrl.contains("$")) {
+            String tempField = pageUrl.substring(pageUrl.indexOf("${") + 2, pageUrl.indexOf("}"));
+            Object tempObjectValue2 = SystemValueUtil.generateTempObjectValue(object, tempField.split("\\."));
+            if (tempObjectValue2 == null) {
+                throw new Exception(pageUrl + ":" + tempField + "为空");
+            }
+            pageUrl = pageUrl.replace("${" + tempField + "}", tempObjectValue2.toString());
+        }
+
+        return pageUrl;
+    }
+    public void saveOrUpdateOperationLog(Do tempDo, String content, String operationType) {
+        //Map<String, String> settingMap = AuthorizationUtil.getMyUser().getSettingMap();
+
+        Boolean operation = true;//settingMap.get("operation");
+
+        if (operation != null && operation.equals("true")) {
+
+            OperationLog operationLog = new OperationLog();
+            operationLog.setUser(AuthorizationUtil.getUser());
+            operationLog.setTheDateTime(new Date());
+            operationLog.setEntityName(tempDo.getXentity().getName());
+            operationLog.setEntityLabel(tempDo.getXentity().getLabel());
+            operationLog.setContent(content);
+            operationLog.setOperationType(operationType);
+
+            xdoDao.saveOrUpdateObject(OperationLog.class.getName(), operationLog);
+
+        }
+
+    }
 /*
 
     */
@@ -1367,6 +1459,7 @@ public class XdoManagerImpl implements XdoManager {
 
         return tempMap;  //To change body of implemented methods use File | Settings | File Templates.
     }*/
+/*
 
     private String generatePercent(String expression) {
         String percent = "";
@@ -1432,7 +1525,9 @@ public class XdoManagerImpl implements XdoManager {
         return object;
     }
 
-    /*生成   查询语句（包含group by的查询语句） 和查询参数    */
+    */
+/*生成   查询语句（包含group by的查询语句） 和查询参数    *//*
+
     private XQuery generateNewGroupByQueryString(Do tempDo, String groupByKeyOperation, String groupByKeyValue, Groupby groupby1, Groupby groupby2, DoQuery doQuery, String tempConditions) {
 
         String queryHql = doQuery.getQueryHql();
@@ -1441,7 +1536,9 @@ public class XdoManagerImpl implements XdoManager {
 
         StringBuilder sb = new StringBuilder(100);
 
-        /*拼写 配置文件中的conditon*/
+        */
+/*拼写 配置文件中的conditon*//*
+
         XQuery tempXQuery = fetchXQueryByConditions(doQuery.getConditionList(), doQuery, tempConditions);
         sb.append(tempXQuery.getStringBuilder());
         queryParamMap.putAll(tempXQuery.getQueryParamMap());
@@ -1508,9 +1605,10 @@ public class XdoManagerImpl implements XdoManager {
         return xQuery;
     }
 
+*/
 /*
+*/
 
-    */
 /* 数据矩阵报表*//*
 
     @Override
@@ -1800,7 +1898,10 @@ public class XdoManagerImpl implements XdoManager {
     }
 */
 
-    /*生成   查询语句（包含group by的查询语句） 和查询参数    */
+/*
+    */
+/*生成   查询语句（包含group by的查询语句） 和查询参数    *//*
+
     private XQuery generateGroupByQueryString(Do tempDo, DoQuery doQuery, String tempConditions) {
 
         String queryHql = doQuery.getQueryHql();
@@ -1810,7 +1911,9 @@ public class XdoManagerImpl implements XdoManager {
 
         StringBuilder sb = new StringBuilder(100);
 
-        /*拼写 配置文件中的conditon*/
+        */
+/*拼写 配置文件中的conditon*//*
+
         XQuery tempXQuery = fetchXQueryByConditions(doQuery.getConditionList(), doQuery, tempConditions);
         sb.append(tempXQuery.getStringBuilder());
 
@@ -1863,7 +1966,9 @@ public class XdoManagerImpl implements XdoManager {
     }
 
 
-    /*生成报表的时候    从查询出的list中  获取x轴， y轴 ，对应的 值*/
+    */
+/*生成报表的时候    从查询出的list中  获取x轴， y轴 ，对应的 值*//*
+
     public String getTotal(GroupTypeEntity yGroupTypeEntity, GroupTypeEntity xGroupTypeEntity, List<Object[]> taskList) {
 
         String totalNum = "0";
@@ -1875,9 +1980,11 @@ public class XdoManagerImpl implements XdoManager {
             if (xGroupTypeEntity == null) {
                 if (objects[0] != null && objects[0].toString().equals(yGroupTypeEntity.getName())) {
                     if (objects[1] != null) {
-                        /*if (objects[1].getClass().getName().equals("java.lang.Double")) {
+                        */
+/*if (objects[1].getClass().getName().equals("java.lang.Double")) {
                             totalNum = ((Double) objects[1]).intValue();
-                        } else {*/
+                        } else {*//*
+
                         totalNum = objects[1].toString();
 //                        }
                     }
@@ -1889,9 +1996,11 @@ public class XdoManagerImpl implements XdoManager {
                 }
                 if (objects[0].toString().equals(xGroupTypeEntity.getName()) && objects[1].toString().equals(yGroupTypeEntity.getName())) {
                     if (objects[2] != null) {
-                        /*if (objects[2].getClass().getName().equals("java.lang.Double")) {
+                        */
+/*if (objects[2].getClass().getName().equals("java.lang.Double")) {
                             totalNum = ((Double) objects[2]).intValue();
-                        } else {*/
+                        } else {*//*
+
                         totalNum = objects[2].toString();
 //                        }
                     }
@@ -1903,24 +2012,12 @@ public class XdoManagerImpl implements XdoManager {
 
         return totalNum;
     }
+*/
 
+/*
+    */
+/*饼状图*//*
 
-    /*转化url中${}中包含的对象属性*/
-    public String convertPageUrl(String pageUrl, Object object) throws Exception {
-
-        while (pageUrl.contains("$")) {
-            String tempField = pageUrl.substring(pageUrl.indexOf("${") + 2, pageUrl.indexOf("}"));
-            Object tempObjectValue2 = SystemValueUtil.generateTempObjectValue(object, tempField.split("\\."));
-            if (tempObjectValue2 == null) {
-                throw new Exception(pageUrl + ":" + tempField + "为空");
-            }
-            pageUrl = pageUrl.replace("${" + tempField + "}", tempObjectValue2.toString());
-        }
-
-        return pageUrl;
-    }
-
-    /*饼状图*/
     public StringBuilder generatePieChartJsonData(Do tempDo, DoQuery doQuery, List<GroupType> groupTypeList, List<Object[]> taskList) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -1964,7 +2061,9 @@ public class XdoManagerImpl implements XdoManager {
         return stringBuilder;
     }
 
-    /*其他图表（非饼状图）*/
+    */
+/*其他图表（非饼状图）*//*
+
     public StringBuilder generateChartJsonData(Do tempDo, DoQuery doQuery, List<GroupType> groupTypeList, List<Object[]> taskList) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -2002,39 +2101,9 @@ public class XdoManagerImpl implements XdoManager {
 
         return stringBuilder;
     }
+*/
 
 
-    /*list页面    生成operation   操作链接*/
-    public StringBuilder generateOperation(Object object, Page tempPage) throws Exception {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\"操作\":\"");
-        for (Command command : tempPage.getOperationList()) {
-            if (processPermission(command.getPermission(), object, command.getOwner())) {
-                String url = convertPageUrl(command.getUrl(), object);
-                url = ApplicationContextUtil.getApplicationContext().getApplicationName() + url;
-                if (command.getType() != null && command.getType().equals("dialog")) {
-                    stringBuilder.append("<a class='ho' href='###'")
-                            .append(" onclick='artDialog.open(\\\"")
-                            .append(url)
-                            .append("\\\", {width:800,height:600})'")
-                            .append("'>")
-                            .append(command.getLabel())
-                            .append("</a>");
-                } else {
-                    stringBuilder.append("<a class='ho' href='")
-                            .append(url)
-                            .append("'>")
-                            .append(command.getLabel())
-                            .append("</a>");
-                }
-
-
-                stringBuilder.append("   ");
-            }
-        }
-        stringBuilder.append("\",");
-        return stringBuilder;
-    }
 
 /*
 
@@ -2169,8 +2238,11 @@ public class XdoManagerImpl implements XdoManager {
     }
 */
 
+/*
 
-    /*判断x轴，和y轴之间是否有从属关系 。 比如说 x轴course是y轴clazz的一个子表*/
+    */
+/*判断x轴，和y轴之间是否有从属关系 。 比如说 x轴course是y轴clazz的一个子表*//*
+
     public boolean isGorun(GroupTypeEntity xGroupTypeEntity, GroupTypeEntity yGroupTypeEntity) {
 
         boolean flag = false;
@@ -2184,28 +2256,11 @@ public class XdoManagerImpl implements XdoManager {
 
         return flag;
     }
+*/
 
 
-    private Boolean processPermission(String access, Object object, String owner) throws Exception {
-   /*     if(AuthorizationUtil.getMyUser()!=null&&!("").equals(AuthorizationUtil.getMyUser().getId())){
-            if (("system").equals(AuthorizationUtil.getMyUser().getRole())) {
-                return true;
-            }
-        }*/
 
-
-        String ownerId = "";
-        if (!owner.equals("")) {
-
-            String tempOwnerId = owner.substring(owner.indexOf("${") + 2, owner.indexOf("}"));
-            Object id = SystemValueUtil.generateTempObjectValue(object, tempOwnerId.split("\\."));
-            if (id != null) {
-                ownerId = id.toString();
-            }
-        }
-        return true;
-    }
-
+/*
     private String generateDataReportGroupValue(Object object, String name) throws Exception {
         String strValue = "";
 
@@ -2218,22 +2273,11 @@ public class XdoManagerImpl implements XdoManager {
 
         return strValue;
     }
-
-    /*FORM 或者 VIEW的时候set指定的值*/
-    private void generateFetchObjectSetValue(Object object, Class objectClass, String fieldName, Object value) {
-
-        try {
-            Field field = objectClass.getDeclaredField(fieldName);
-            field.setAccessible(true);
-            field.set(object, value);
-        } catch (Exception e) {
-            generateFetchObjectSetValue(object, objectClass.getSuperclass(), fieldName, value);
-        }
-
-    }
+*/
 
 
-    /*矩阵报表   生成x轴和y轴对应的value*/
+/*
+    *//*矩阵报表   生成x轴和y轴对应的value*//*
     private LinkedList<String> generateTotalCount(Integer group, Integer length, LinkedHashMap<String, LinkedList<String>> tempMap) {
         LinkedList<String> stringList = new LinkedList<>();
 
@@ -2255,12 +2299,7 @@ public class XdoManagerImpl implements XdoManager {
         }
 
         return stringList;
-    }
+    }*/
 
 
-    private XQuery executeXQueryHandler(XQuery xQuery, DoQuery doQuery) throws Exception {
-        QueryHandler queryHandler = (QueryHandler) Class.forName(doQuery.getQueryExecute()).newInstance();
-
-        return queryHandler.handle(xQuery);
-    }
 }
